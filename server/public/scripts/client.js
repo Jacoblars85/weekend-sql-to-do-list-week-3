@@ -16,7 +16,9 @@ function getTodos() {
 }
 
 //render route
-
+function renderTodos() {
+    
+}
 
 //post route
 
