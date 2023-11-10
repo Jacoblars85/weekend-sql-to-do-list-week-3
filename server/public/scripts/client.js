@@ -26,16 +26,16 @@ function renderTodos(todos) {
 
     if (isComplete === true) {
       toDoBody.innerHTML += `
-    <li data-testid="toDoItem" class="completed" data-todoId="${todo.id}" >${todo.text} 
-    <button data-testid="deleteButton" onclick="deleteButton(event)" >Delete</button>
-    </li>
+    <ul data-testid="toDoItem" class="completed" data-todoId="${todo.id}" >${todo.text} 
+    <button data-testid="deleteButton" class="delete" onclick="deleteButton(event)" >Delete</button>
+    </ul>
     `
     } else if (isComplete === false) {
       toDoBody.innerHTML += `
-      <li data-testid="toDoItem" data-todoId="${todo.id}" >${todo.text} 
-      <button data-testid="completeButton" onclick="makeComplete(event)" >Complete</button>
-      <button data-testid="deleteButton" onclick="deleteButton(event)" >Delete</button>
-      </li>
+      <ul data-testid="toDoItem" data-todoId="${todo.id}" >${todo.text} 
+      <button data-testid="completeButton" class="complete" onclick="makeComplete(event)" >Complete</button>
+      <button data-testid="deleteButton" class="delete" onclick="deleteButton(event)" >Delete</button>
+      </ul>
       `
     }
 
@@ -71,7 +71,7 @@ document.getElementById('toDoTextInput').value = '';
 //put route
 function makeComplete(event) {
   console.log('finishing that task');
-  let todoId = event.target.closest('li').getAttribute('data-todoId');
+  let todoId = event.target.closest('ul').getAttribute('data-todoId');
 
   axios({
     url: `/todos/${todoId}`,
@@ -88,7 +88,7 @@ function makeComplete(event) {
 function deleteButton(event) {
   console.log('trying to delete');
 
-  let todoId = event.target.closest('li').getAttribute('data-todoId');
+  let todoId = event.target.closest('ul').getAttribute('data-todoId');
 
   axios({
     method: 'DELETE',

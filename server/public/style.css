@@ -2,3 +2,49 @@
     text-decoration: line-through;
     color: green;
 }
+
+ul {
+    padding-bottom: 10px;
+    font-size: 20px;
+
+}
+
+h1 {
+    text-align: center;
+    border: 3px solid;
+    background-color: aliceblue;
+}
+
+section {
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
+    border: 3px solid;
+    background-color: aliceblue;
+}
+
+* {
+    background-color: salmon;
+}
+
+button {
+    background-color: white;
+    color: black;
+    border-color: black;
+}
+
+input {
+    background-color: white;
+    color: black;
+    border-color: black;
+}
+
+.complete {
+    background-color: green;
+}
+
+.delete {
+    background-color: red;
+}
