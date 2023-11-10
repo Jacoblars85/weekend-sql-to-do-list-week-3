@@ -47,7 +47,30 @@ router.post('/', (req, res) => {
 })
 
 //put route
+router.put('/:id', (req, res) => {
+  console.log('hopefully this works');
+  const idofTodos = req.params.id;
 
+  console.log(idofTodos);
+
+  const sqlQueryText = `
+  UPDATE "todos"
+  SET "isComplete" = true
+  WHERE "id" = $1
+  `
+
+  const sqlValues = [idofTodos]
+
+  pool.query(sqlQueryText, sqlValues)
+  .then((dbResult) => {
+      res.sendStatus(201);
+      console.log('PUT successful');
+  }).catch((dbError) => {
+      res.sendStatus(500);
+      console.log('got an error in put route', dbError);
+  })
+
+})
 
 //delete route
 

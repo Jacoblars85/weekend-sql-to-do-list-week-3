@@ -22,9 +22,26 @@ function renderTodos(todos) {
   toDoBody.innerHTML = '';
 
   for (let todo of todos) {
-    toDoBody.innerHTML += `
-    <li data-testid="toDoItem">${todo.text}</li>
+    let isComplete = todo.isComplete
+
+    if (isComplete === true) {
+      toDoBody.innerHTML += `
+    <li data-testid="toDoItem" data-todoId="${todo.id} class="completed" >${todo.text} 
+    <button data-testid="deleteButton" onclick="" >Delete</button>
+    </li>
     `
+    } else if (isComplete === false) {
+      toDoBody.innerHTML += `
+      <li data-testid="toDoItem" data-todoId="${todo.id}">${todo.text} 
+      <button data-testid="completeButton" onclick="makeComplete(event)" >Complete</button>
+      <button data-testid="deleteButton" onclick="" >Delete</button>
+      </li>
+      `
+    }
+
+
+
+   
   }
 }
 
@@ -48,11 +65,23 @@ document.getElementById('toDoTextInput').value = '';
     getTodos()
   }).catch((error) =>{
     console.log(error, 'Error in posting todos');
-    alert('ERROR in post rooute');
   })
 }
 
 //put route
+function makeComplete(event) {
+  console.log('finishing that task');
+  let todoId = event.target.closest('li').getAttribute('data-todoId');
 
+  axios({
+    url: `/todos/${todoId}`,
+    method: 'PUT'
+  }).then((response) => {
+    getTodos()
+  }).catch((error) =>{
+    console.log(error, 'Error in completing todo');
+  })
+ 
+}
 
 //delete route
