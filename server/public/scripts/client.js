@@ -26,15 +26,15 @@ function renderTodos(todos) {
 
     if (isComplete === true) {
       toDoBody.innerHTML += `
-    <li data-testid="toDoItem" data-todoId="${todo.id} class="completed" >${todo.text} 
-    <button data-testid="deleteButton" onclick="" >Delete</button>
+    <li data-testid="toDoItem" class="completed" data-todoId="${todo.id}" >${todo.text} 
+    <button data-testid="deleteButton" onclick="deleteButton(event)" >Delete</button>
     </li>
     `
     } else if (isComplete === false) {
       toDoBody.innerHTML += `
-      <li data-testid="toDoItem" data-todoId="${todo.id}">${todo.text} 
+      <li data-testid="toDoItem" data-todoId="${todo.id}" >${todo.text} 
       <button data-testid="completeButton" onclick="makeComplete(event)" >Complete</button>
-      <button data-testid="deleteButton" onclick="" >Delete</button>
+      <button data-testid="deleteButton" onclick="deleteButton(event)" >Delete</button>
       </li>
       `
     }
@@ -85,3 +85,17 @@ function makeComplete(event) {
 }
 
 //delete route
+function deleteButton(event) {
+  console.log('trying to delete');
+
+  let todoId = event.target.closest('li').getAttribute('data-todoId');
+
+  axios({
+    method: 'DELETE',
+    url: `/todos/${todoId}`
+  }).then((response) => {
+    getTodos();
+  }).catch((error) => {
+    console.log('delete /todos/:id fail', error);
+  })
+}

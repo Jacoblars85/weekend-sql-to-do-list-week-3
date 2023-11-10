@@ -73,7 +73,24 @@ router.put('/:id', (req, res) => {
 })
 
 //delete route
-
+router.delete(`/:id`, (req, res) => {
+  const sqlQueryText = `
+  DELETE FROM "todos"
+    WHERE "id" = $1;
+  `
+  const sqlValues = [
+    req.params.id
+  ]
+  // console.log(`sql Values from html`, req.params);
+  pool.query(sqlQueryText, sqlValues)
+    .then((dbResult) => {
+      res.sendStatus(200)
+    })
+    .catch((dbError) => {
+      console.log(`DELETE /todos SQL query failed: `, dbError)
+      res.sendStatus(500)
+    })
+});
 
 
 module.exports = router;
