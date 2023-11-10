@@ -11,13 +11,20 @@ function getTodos() {
     url: '/todos',
     method: 'GET'
   }).then((response) => {
-    //will put render function here
+    renderTodos(response.data)
   })
 }
 
 //render route
-function renderTodos() {
-    
+function renderTodos(todos) {
+  let toDoBody = document.getElementById('');
+  toDoBody.innerHTML = '';
+
+  for (let todo of todos) {
+    toDoBody.innerHTML += `
+    <li data-testid="toDoItem">${todo.text}</li>
+    `
+  }
 }
 
 //post route
