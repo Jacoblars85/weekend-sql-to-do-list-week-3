@@ -29,7 +29,28 @@ function renderTodos(todos) {
 }
 
 //post route
+function postTodos(event) {
+  console.log('clicking add');
 
+  let todoInput = document.getElementById('toDoTextInput').value;
+
+let newTodo = {
+  text: todoInput
+};
+
+document.getElementById('toDoTextInput').value = '';
+
+  axios({
+    url: '/todos',
+    method: 'POST',
+    data: newTodo
+  }).then((response) => {
+    getTodos()
+  }).catch((error) =>{
+    console.log(error, 'Error in posting todos');
+    alert('ERROR in post rooute');
+  })
+}
 
 //put route
 

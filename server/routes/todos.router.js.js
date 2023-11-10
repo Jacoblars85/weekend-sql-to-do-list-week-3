@@ -16,14 +16,35 @@ router.get('/', (req, res) => {
         // Sends back the results in an object
         res.send(dbResult.rows);
   })
-  .catch(error => {
-    console.log('error getting todos', error);
+  .catch(dbError => {
+    console.log('error getting todos', dbError);
     res.sendStatus(500);
   });
 })
 
 //post route
+router.post('/', (req, res) => {
+  console.log(req.body);
 
+  let todoInput = req.body
+ 
+  const sqlQueryText = `
+      INSERT INTO "todos"
+          ("text")
+          VALUES
+          ($1);
+  `
+  const sqlValues = [todoInput.text];
+  console.log(sqlValues, "are the values");
+  pool.query(sqlQueryText, sqlValues)
+      .then((dbResult) => {
+          res.sendStatus(201);
+          console.log('POST successful');
+      }).catch((dbError) => {
+        console.log('error posting todos', dbError);
+          res.sendStatus(500);
+      })
+})
 
 //put route
 
