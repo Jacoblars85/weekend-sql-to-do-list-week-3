@@ -4,7 +4,7 @@ getTodos()
 
 //get route
 function getTodos() {
-    console.log('in get route client side');
+    console.log('in get route');
 
     // axios call to server to get todos
   axios({
@@ -17,7 +17,8 @@ function getTodos() {
 
 //render route
 function renderTodos(todos) {
-  let toDoBody = document.getElementById('');
+  console.log('in render function');
+  const toDoBody = document.getElementById('todoBody');
   toDoBody.innerHTML = '';
 
   for (let todo of todos) {
